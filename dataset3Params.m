@@ -23,9 +23,23 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+values = [0.01, 0.03, 0.1, 0.3,  1, 3, 10, 30]; %here we are using values for both sigma and C
+all_combos=[];
+for i= 1:length(values)
+    for j= 1:length(values)
+        testc=values(i)
+        testsigma= values(j)
+        model= svmTrain(X, y, testc, @(x1, x2) gaussianKernel(x1, x2, testsigma)); 
+        predictions = svmPredict(model, Xval)
+        error= mean(double(predictions ~= yval));
+        all_combos=[all_combos; testc,testsigma,error]
+    end
+end
 
+[minError, minIndex] = min(all_combos(:,3));
 
-
+C = all_combos(minIndex,1);
+sigma = all_combos(minIndex,2);
 
 
 

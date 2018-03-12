@@ -98,9 +98,17 @@ while ~isempty(email_contents)
     %
 
 
+l=length(vocabList); %length of vocab list
 
-
-
+for i = 1:l
+        str1=vocabList{i}  %taking each strign at a time
+        if(strcmp(str, str1)) %comapring and checking if vocab list string is present in the email string,
+                                            %if present return the index
+                                            %from vocab list
+        word_indices = [word_indices ; i]; %here now we have exctly like figure 11
+        end
+   
+end
 
 
 
